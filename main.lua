@@ -1,5 +1,6 @@
 require "camera"
 require "player"
+require "box"
 
 function love.load()
 
@@ -16,6 +17,7 @@ function love.load()
 	groundSizeY = 60
 	meter = 64
 	gravity = 1000
+	boxesMade = 0
 
 	-- love.physics.setMeter(meter)
 	-- world = love.physics.newWorld(0, 9.81*meter, true)
@@ -73,8 +75,10 @@ function love.draw()
  --  love.graphics.polygon("fill", objects.block2.body:getWorldPoints(objects.block2.shape:getPoints()))
   love.graphics.setColor(255,255,255)
   camera:setPosition(p.x, p.y)
---  camera:move(p.x, p.y)
   love.graphics.draw(p.sprite, p.x, p.y, 0)
+  if boxesMade > 0 then
+  	love.graphics.draw(box.sprite, box.x, box.y)
+  end
   camera:unset()
   print("p.ySpeed is ", math.floor(p.ySpeed))
   print("yActualSpeed is ", math.floor(yActualSpeed))
@@ -101,5 +105,12 @@ function love.keyreleased(key)
 	if key == "left" or key == "right" then
 		p.xSpeed = 0
 		p.state = "onground"
+	end
+end
+
+function love.mousepressed(x, y, button)
+	if button == "r" then
+		box = box:new(x, y)
+		boxesMade = boxesMade + 1
 	end
 end

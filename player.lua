@@ -10,7 +10,7 @@ function player:new(startposx, startposy)
 	runSpeed = 200,
 	jumpSpeed = 500,
 	state = "none",
---	height = sprite:getHeight()
+--	height = sprite:getHeight(),
 	height = 64,
 
 	-- Debug variables
@@ -51,7 +51,7 @@ function player:update(dt, gravity)
 	self.y = self.y + (self.ySpeed * dt)
 	self.ySpeed = self.ySpeed + (gravity * dt)
 	yActualSpeed = (math.abs(math.floor(self.y) - math.floor(self.previousY))/dt)
-	if self.ySpeed == 0 then
+	if yActualSpeed == 0 then
 		self.state = "onground"
 	end
 	self.previousX = self.x
